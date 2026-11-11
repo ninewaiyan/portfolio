@@ -1,0 +1,4 @@
+.private/
+.git/
+node_modules/
+dist/
