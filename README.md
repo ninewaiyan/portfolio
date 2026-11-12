@@ -1,5 +1,24 @@
 # React + Vite
 
+## Branding and browser icons
+
+The active navbar in `src/pages/Home.jsx` uses styled XCIX text with theme-aware colors. The older `src/components/Navbar.jsx` references the transparent `public/xcix.png`, but that component is not mounted by the current homepage. The social preview is a separate, existing portrait at `public/images/nine-wai-yan.jpg`.
+
+Both `index.html` and `public/404.html` declare the same browser icon set:
+
+- `public/favicon.svg`: 64px viewBox, outlined XCIX lettering, dark tile, and red accent; no runtime font dependency.
+- `public/favicon.png`: 64 × 64 fallback with transparent outer corners and an opaque dark tile behind the lettering.
+- `public/favicon.ico`: 16, 32, and 48px PNG frames in a multi-resolution ICO container.
+- `public/apple-touch-icon.png`: opaque 180 × 180 icon for Apple devices.
+
+These are exports of the existing favicon branding. To regenerate them on Windows with Consolas installed, run `powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/generate-favicons.ps1`. This process-only execution setting does not change the machine's policy. Generated files are committed; production builds need neither PowerShell nor a font installation.
+
+Icon links use `?v=2` to refresh older cached references. Increase this version when updating the artwork again. The root `/favicon.ico` also exists for clients that request it automatically. Theme-color remains controlled by the existing theme scripts; the standalone dark 404 page sets its own background color.
+
+The initial live investigation found that the existing SVG, original logo, and social portrait returned valid images, but `/favicon.ico` and `/apple-touch-icon.png` returned HTTP 404. Missing fallback formats were confirmed; the reported blank browser rendering was not reproduced. The original SVG used font-dependent text, and production cached image assets for 30 days, so path outlines and refreshed icon URLs address those additional compatibility/cache risks without replacing the brand.
+
+Validation: production build passed; all declared icon URLs plus the original logo and social portrait returned HTTP 200 with image content types in local Vite preview. PNG dimensions/transparency, SVG XML and path data, and all ICO frame headers were checked. Raster exports and the separate social portrait were inspected visually. Browser-tab rendering and Apple home-screen rendering still require device/browser verification after deployment; these checks do not claim a successful production update.
+
 ## Production SEO
 
 Canonical origin: `https://www.ninewaiyan.online/`.
