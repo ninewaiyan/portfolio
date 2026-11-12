@@ -12,14 +12,14 @@
   --accent-fill: #c82e4b;
   --accent-hover: #ae203c;
   --accent-ink: #ffffff;
-  --secondary: #c4afe8;
+  --secondary: #8dbdff;
   --surface: #1b171f;
   --inset: #241e29;
   --hover: #2f222d;
   --line: #40313e;
   --header: #100e13ed;
   --glow: #ed496b16;
-  --secondary-glow: #b695df12;
+  --secondary-glow: #8dbdff12;
   --grid: #eb94ac0c;
   --shadow: 0 16px 45px #00000030;
   color: var(--text);
@@ -27,23 +27,23 @@
 }
 :root[data-theme="light"] {
   color-scheme: light;
-  --bg: #faf6f7;
-  --text: #291d29;
-  --muted: #6a5665;
-  --accent: #ae2341;
-  --accent-fill: #b12645;
-  --accent-hover: #921936;
+  --bg: #f4f9fc;
+  --text: #172e42;
+  --muted: #506779;
+  --accent: #155eab;
+  --accent-fill: #1b63b1;
+  --accent-hover: #154e8d;
   --accent-ink: #ffffff;
-  --secondary: #70518d;
+  --secondary: #16704f;
   --surface: #ffffff;
-  --inset: #f2e9ee;
-  --hover: #f4e4eb;
-  --line: #e0cdd6;
-  --header: #faf6f7ed;
-  --glow: #ca315313;
-  --secondary-glow: #9363b512;
-  --grid: #852e4a0d;
-  --shadow: 0 16px 45px #5d183213;
+  --inset: #eaf3f7;
+  --hover: #e3f2f2;
+  --line: #c9dce5;
+  --header: #f4f9fced;
+  --glow: #2479cb13;
+  --secondary-glow: #15956812;
+  --grid: #216e970d;
+  --shadow: 0 16px 45px #164e6312;
 }
 * {
   box-sizing: border-box;
@@ -118,8 +118,8 @@ svg {
   height: 6px;
   flex-shrink: 0;
   border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 4px var(--glow);
+  background: var(--green);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--green) 12%, transparent);
 }
 .section {
   padding-block: 104px;
@@ -1411,7 +1411,7 @@ body {
 .portrait-frame > img { filter: saturate(.75); transition: transform .7s ease; }
 .hero-visual:hover .portrait-frame > img { transform: scale(1.025); }
 .portrait-caption { color: #f1f5ef; }
-.portrait-cross { color: #ffb3c1; }
+.portrait-cross { color: var(--accent); }
 .credential-chip {
   position: relative; right: auto; bottom: auto;
   width: max-content; max-width: calc(100% - 20px);
@@ -1649,8 +1649,8 @@ body {
   position: absolute;
   inset: 12px;
   pointer-events: none;
-  border-top: 2px solid #ffb3c1;
-  border-right: 2px solid #ffb3c1;
+  border-top: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
   width: 22px;
   height: 22px;
   left: auto;
@@ -1732,26 +1732,34 @@ body {
   --blue: #8dbdff;
   --purple: #d0adff;
   --green: #8bd9ac;
+  --identity-gradient: linear-gradient(110deg, var(--red), var(--red) 52%, var(--blue) 84%, var(--green));
+  --edge-gradient: linear-gradient(90deg, var(--red), var(--red) 60%, var(--blue) 86%, var(--green));
+  --ambient-primary: var(--red);
+  --ambient-secondary: var(--blue);
 }
 :root[data-theme="light"] {
   --red: #ae2341;
-  --blue: #245eab;
+  --blue: #155eab;
   --purple: #75429d;
-  --green: #276f45;
+  --green: #16704f;
+  --identity-gradient: linear-gradient(110deg, var(--blue), var(--blue) 30%, var(--green) 85%);
+  --edge-gradient: linear-gradient(90deg, var(--blue), #227fa0 48%, var(--green));
+  --ambient-primary: var(--blue);
+  --ambient-secondary: var(--green);
 }
 .discipline-red { --discipline: var(--red); }
 .discipline-blue { --discipline: var(--blue); }
 .discipline-purple { --discipline: var(--purple); }
 .discipline-green { --discipline: var(--green); }
 .site-header::before {
-  background: linear-gradient(90deg, var(--red), var(--blue) 33%, var(--purple) 66%, var(--green));
+  background: var(--edge-gradient);
 }
 .hero h1 > span {
-  background-image: linear-gradient(110deg, var(--red), var(--purple) 48%, var(--blue) 75%, var(--green));
+  background-image: var(--identity-gradient);
 }
 .portfolio {
-  background: radial-gradient(ellipse 600px 550px at 95% 1%, color-mix(in srgb, var(--blue) 8%, transparent), transparent 75%),
-              radial-gradient(ellipse 650px 550px at 0% 4%, color-mix(in srgb, var(--red) 8%, transparent), transparent 80%),
+  background: radial-gradient(ellipse 600px 550px at 95% 1%, color-mix(in srgb, var(--ambient-secondary) 8%, transparent), transparent 75%),
+              radial-gradient(ellipse 650px 550px at 0% 4%, color-mix(in srgb, var(--ambient-primary) 10%, transparent), transparent 80%),
               radial-gradient(ellipse 650px 450px at 100% 35%, color-mix(in srgb, var(--green) 5%, transparent), transparent 80%);
 }
 .identity-tags { gap: 8px; }
@@ -1817,7 +1825,8 @@ body {
 .expertise-card > p:not(.discipline-status) { min-height: 48px; }
 .expertise-grid .expertise-card li > svg { color: var(--discipline); }
 .code-discipline { color: var(--discipline); }
-.code-titlebar { border-top: 2px solid transparent; border-image: linear-gradient(90deg, var(--red), var(--blue), var(--purple), var(--green)) 1; }
+.code-titlebar { border-top: 2px solid transparent; border-image: var(--edge-gradient) 1; }
+.project-card:nth-child(3n) .project-icon { color: var(--green); background: color-mix(in srgb, var(--green) 8%, var(--surface)); }
 @media (max-width: 980px) {
   .discipline-strip a { font-size: 9px; gap: 7px; padding-inline: 9px; }
   .discipline-index { display: none; }
